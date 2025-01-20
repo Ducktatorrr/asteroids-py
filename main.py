@@ -15,6 +15,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -26,8 +27,9 @@ def main():
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (updatable)
+    AsteroidField.containers = updatable
     Shot.containers = (shots, updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
     dt = 0
@@ -40,11 +42,15 @@ def main():
 
         for obj in updatable:
             obj.update(dt)
-        
+
         for asteroid in asteroids:
-            if asteroid.collides_with(player):
-                print("Game over!")
-                sys.exit()
+            if asteroid.collides_with(player) and not player.invulnerable:
+                player.health -= 1
+                if player.health <= 0:
+                    print("Game over!")
+                    sys.exit()
+                else:
+                    player.respawn(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
             for bullet in shots:
                 if asteroid.collides_with(bullet):
                     bullet.kill()
