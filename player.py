@@ -8,6 +8,7 @@ from constants import (
     PLAYER_SHOOT_SPEED,
     PLAYER_SHOOT_COOLDOWN,
     PLAYER_LIVES,
+    PLAYER_RESPAWN_TIME,
 )
 
 
@@ -19,6 +20,7 @@ class Player(CircleShape):
         self.health = PLAYER_LIVES
         self.invulnerable = False
         self.respawn_timer = 0
+        self.score = 0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -37,11 +39,11 @@ class Player(CircleShape):
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
-    
+
     def respawn(self, x, y):
         self.position = pygame.Vector2(x, y)
         self.invulnerable = True
-        self.respawn_timer = 1.0
+        self.respawn_timer = PLAYER_RESPAWN_TIME
 
     def update(self, dt):
         self.shot_cooldown -= dt
