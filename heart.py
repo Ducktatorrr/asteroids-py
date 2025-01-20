@@ -1,5 +1,6 @@
 import pygame
 from circleshape import CircleShape
+from constants import RED_COLOR
 
 
 class Heart(CircleShape):
@@ -8,5 +9,5 @@ class Heart(CircleShape):
 
     def draw(self, screen):
         pygame.draw.circle(
-            screen, "red", (int(self.position.x), int(self.position.y)), self.radius
+            screen, RED_COLOR, (int(self.position.x), int(self.position.y)), self.radius
         )

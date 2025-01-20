@@ -1,19 +1,12 @@
 import pygame
 import sys
-from constants import (
-    SCREEN_WIDTH,
-    SCREEN_HEIGHT,
-)
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BG_COLOR, PRIMARY_COLOR
 
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 from heart import Heart
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
 
 
 def setup_game():
@@ -50,12 +43,12 @@ def setup_game():
 def start_screen(screen):
     title_font = pygame.font.Font(None, 48)
     font = pygame.font.Font(None, 24)
-    title = title_font.render("asteroids-py", True, WHITE)
+    title = title_font.render("asteroids-py", True, PRIMARY_COLOR)
     title_rect = title.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-    text = font.render("Press Enter to Start", True, WHITE)
+    text = font.render("Press Enter to Start", True, PRIMARY_COLOR)
     text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
 
-    screen.fill(BLACK)
+    screen.fill(BG_COLOR)
     screen.blit(title, title_rect)
     screen.blit(text, text_rect)
     pygame.display.flip()
@@ -74,11 +67,11 @@ def start_screen(screen):
 def draw_score(screen, score):
     """Draws the player's score in the top-right corner."""
     font = pygame.font.Font(None, 36)
-    score_text = font.render("Score:", True, WHITE)
+    score_text = font.render("Score:", True, PRIMARY_COLOR)
     score_rect = score_text.get_rect(topright=(SCREEN_WIDTH - 10, 10))
     screen.blit(score_text, score_rect)
 
-    score_points_text = font.render(str(score), True, WHITE)
+    score_points_text = font.render(str(score), True, PRIMARY_COLOR)
     score_points_rect = score_points_text.get_rect(
         topright=(SCREEN_WIDTH - 10, score_rect.bottom + 5)
     )
@@ -87,9 +80,9 @@ def draw_score(screen, score):
 
 def draw_play_again_button(screen):
     button_rect = pygame.Rect(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 50, 100, 40)
-    pygame.draw.rect(screen, WHITE, button_rect)
+    pygame.draw.rect(screen, PRIMARY_COLOR, button_rect)
     font = pygame.font.Font(None, 24)
-    text = font.render("Play Again", True, BLACK)
+    text = font.render("Play Again", True, BG_COLOR)
     text_rect = text.get_rect(center=button_rect.center)
     screen.blit(text, text_rect)
     return button_rect
@@ -97,7 +90,7 @@ def draw_play_again_button(screen):
 
 def game_over(screen):
     font = pygame.font.Font(None, 36)
-    text = font.render("Game Over! Press Enter to play again", True, WHITE)
+    text = font.render("Game Over! Press Enter to play again", True, PRIMARY_COLOR)
     text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
     screen.blit(text, text_rect)
 
@@ -154,7 +147,7 @@ def main():
                     points = asteroid.split()
                     player.score += points
 
-        screen.fill("black")
+        screen.fill(BG_COLOR)
 
         for obj in drawable:
             obj.draw(screen)
